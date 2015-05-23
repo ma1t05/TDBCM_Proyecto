@@ -144,27 +144,29 @@ int testMST() {
   return 0;
 }
 
-void read_instance () {
-  int n,p;
-  int i,j,k;
-  int *parent;
+int ***read_instance (int *n,int *p) {
   int ***graph;
-  cin >> n >> p;
-  cout << n << " " << p << endl;
-  graph = new int**[p];
-  for (int k = 0;k < p;k++) {
-    graph[k] = new int*[n];
-    for (int i = 0;i < n;i++) {
-      graph[k][i] = new int[n];
-      for (int j = 0;j < n;j++) {
+  cin >> (*n) >> (*p);
+  graph = new int**[(*p)];
+  for (int k = 0;k < (*p);k++) {
+    graph[k] = new int*[(*n)];
+    for (int i = 0;i < (*n);i++) {
+      graph[k][i] = new int[(*n)];
+      for (int j = 0;j < (*n);j++) {
 	cin >> graph[k][i][j];
-	cout << graph[k][i][j] << " ";
       }
-      cout << endl;
     }
   }
+  return graph;
+}
+
+void  getMST(int n,int p,int ***graph){
+  int *parent;
   parent = primMST(n,p,graph);
   printMST(n,parent,graph[0]);
+}
+
+void delete_graph(int n,int p,int ***graph){
   for (int k = 0;k < p;k++) {
     for (int i = 0;i < n;i++) {
       delete[] graph[k][i];
