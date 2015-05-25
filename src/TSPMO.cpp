@@ -1,10 +1,7 @@
 
 #include "TSPMO.h"
 
-int *TSPMO_eval(int n,int p,int ***C,int *sol);
-int is_dominated(int n,int *f1,int *f2);
-
-int *TSPMO_eval(int n,int p,int ***C,int *sol) {
+int *TSPMO_eval(int n,int p,double ***C,int *sol) {
   int a,b;
   int *f;
   f = new int[p];
@@ -41,7 +38,7 @@ int is_dominated(int p,int *f1,int *f2) {
   return 0;     
 }
 
-pareto_front *TSPMO_exhaustive(int n,int p,int ***C) {
+pareto_front *TSPMO_exhaustive(int n,int p,double ***C) {
   int cont;
   int *f,*sol;
   bool sol_is_nd;
@@ -98,9 +95,9 @@ pareto_front *TSPMO_exhaustive(int n,int p,int ***C) {
       new_s->sol=new int[n];
       for(int i=0;i<n;i++) {
 	new_s->sol[i]=sol[i];
-	cout << sol[i] << "->";
+	//cout << sol[i] << "->";
       }
-      cout << endl;
+      //cout << endl;
       new_s->next=PF->begin;
       new_s->previous=NULL;
       if (PF->begin != NULL)
