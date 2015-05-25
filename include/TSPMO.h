@@ -22,7 +22,9 @@ struct pareto_front {
   solution *end;
 };
 
-pareto_front *TSPMO_exhaustive(int n,int p,int ***C);
+pareto_front *TSPMO_exhaustive(int n,int p,double ***C);
+int *TSPMO_eval(int n,int p,double ***C,int *sol);
+int is_dominated(int n,int *f1,int *f2);
 
 #endif
 
