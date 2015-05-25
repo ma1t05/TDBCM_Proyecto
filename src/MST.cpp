@@ -18,14 +18,14 @@ int minKey(int n,int *key, bool *mstSet)
 }
  
 // A utility function to print the constructed MST stored in parent[]
-void printMST(int n,int *parent, int **graph)
+void printMST(int n,int *parent, double **graph)
 {
   cout << "Edge   Weight" << endl;
    for (int i = 1; i < n; i++)
      cout << parent[i] << i << graph[i][parent[i]] << endl;
 }
 
-int **normMST(int n,int p,int ***graph){
+int **normMST(int n,int p,double ***graph){
   int **G;
   G = new int*[n];
   for(int i = 0;i < n;i++)
@@ -44,7 +44,7 @@ int **normMST(int n,int p,int ***graph){
 
 // Function to construct and print MST for a graph represented using adjacency
 // matrix representation
-int* primMST(int n,int p,int ***graph){
+int* primMST(int n,int p,double ***graph){
   int *parent; // Array to store constructed MST
   int *key;   // Key values used to pick minimum weight edge in cut
   bool *mstSet;  // To represent set of vertices not yet included in MST
@@ -103,10 +103,10 @@ int testMST() {
       (3)-------(4)
             9          */
   int *parent;
-  int **graph;
-  graph = new int*[5];
+  double **graph;
+  graph = new double*[5];
   for (int i = 0;i < 5;i++)
-    graph[i] = new int[5];
+    graph[i] = new double[5];
   for (int i = 0;i < 5;i++)
     graph[i][i] = 0;
   graph[0][1] = 2;
@@ -144,14 +144,14 @@ int testMST() {
   return 0;
 }
 
-int ***read_instance (int *n,int *p) {
-  int ***graph;
+double ***read_instance (int *n,int *p) {
+  double ***graph;
   cin >> (*n) >> (*p);
-  graph = new int**[(*p)];
+  graph = new double**[(*p)];
   for (int k = 0;k < (*p);k++) {
-    graph[k] = new int*[(*n)];
+    graph[k] = new double*[(*n)];
     for (int i = 0;i < (*n);i++) {
-      graph[k][i] = new int[(*n)];
+      graph[k][i] = new double[(*n)];
       for (int j = 0;j < (*n);j++) {
 	cin >> graph[k][i][j];
       }
@@ -160,13 +160,13 @@ int ***read_instance (int *n,int *p) {
   return graph;
 }
 
-void  getMST(int n,int p,int ***graph){
+void  getMST(int n,int p,double ***graph){
   int *parent;
   parent = primMST(n,p,graph);
   printMST(n,parent,graph[0]);
 }
 
-void delete_graph(int n,int p,int ***graph){
+void delete_graph(int n,int p,double ***graph){
   for (int k = 0;k < p;k++) {
     for (int i = 0;i < n;i++) {
       delete[] graph[k][i];
