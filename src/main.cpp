@@ -27,36 +27,14 @@ int main_exhaustivo (int argc,char** argv) {
   return 0;
 }
 
-int *MST_to_HC(int n,int *mst) {
-  int *HC;
-  int p,i;
-  int cont = 0;
-  i = 0;
-  p = mst[i];
-  while (p != -1 && cont < n) {
-    i = p;
-    p = mst[i];
-    cont++;
-  }
-  if (cont == n) return NULL;
-
-  p = i;
-  HC = new int[n];
-  cont = 0;
-
-  HC[cont++] = p;
-  i = 0;
-  while (p != -1) {
-    for (;i < n;i++) {
-      if (mst[i] == p) {
-	HC[cont++] = i;
-	p = i;
-	i = -1; /* -1 */
-      }
-    }
-    i = p + 1;
-    p = mst[p];
-  }
+int *Christofides_heuristic(Instancia *I) {
+  int *mst;
+  bool *is_odd;
+  int *PM,*HC;
+  mst = primMST(I->n,I->p,I->C);
+  is_odd = odd_nodes_of_MST(I->n,mst);
+  PM = perfect_matching(is_odd,I);
+  HC = NULL; /* Pendiente pasar de PM a HC */
   return HC;
 }
 

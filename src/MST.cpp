@@ -175,3 +175,47 @@ void delete_graph(int n,int p,double ***graph){
   }
   delete[] graph;
 }
+
+bool *odd_nodes_of_MST(int n,int *mst) {
+  bool *is_odd;
+  is_odd = new bool[n];
+  for (int i = 0;i < n;i++) is_odd[i] = (mst[i] >= 0);
+  for (int i = 0;i < n;i++) {
+    if (mst[i] >= 0)
+      is_odd[mst[i]] = !is_odd[mst[i]];
+  }
+  return is_odd;
+}
+
+int *MST_to_HC(int n,int *mst) {
+  int *HC;
+  int p,i;
+  int cont = 0;
+  i = 0;
+  p = mst[i];
+  while (p != -1 && cont < n) {
+    i = p;
+    p = mst[i];
+    cont++;
+  }
+  if (cont == n) return NULL;
+
+  p = i;
+  HC = new int[n];
+  cont = 0;
+
+  HC[cont++] = p;
+  i = 0;
+  while (p != -1) {
+    for (;i < n;i++) {
+      if (mst[i] == p) {
+	HC[cont++] = i;
+	p = i;
+	i = -1; /* -1 */
+      }
+    }
+    i = p + 1;
+    p = mst[p];
+  }
+  return HC;
+}
